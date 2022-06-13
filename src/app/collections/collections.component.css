@@ -1,0 +1,47 @@
+.audioPlayerMain{
+    
+    height :260px;
+    width :260px;
+    background:url('https://decryptnft.mypinata.cloud/ipfs/QmZ2Bty7HzoT9nj4QrxRyFHyUtsUxEXg4RNV6RoyGDAgLu ');
+    background-size: cover;
+    background-position: center;
+}
+.sty{
+    height :260px;
+    width :260px;
+    object-fit: cover;
+}
+.audio__card{
+    position: relative;
+}
+.audio__card audio
+{
+    /* visibility: hidden; */
+}
+.audio__overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.audio__overlay svg{
+    z-index: 2;
+    color: #fff;
+}
+.audio__overlay button{
+  z-index: 2;
+  color: #fff;
+}
+
+
+.card__cover img {
+    width: 100%;
+    width: 260px !important;
+    height: 300px !important;
+    object-fit: cover !important;
+}

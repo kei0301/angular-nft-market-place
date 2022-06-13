@@ -1,0 +1,218 @@
+<app-header></app-header>
+<main class="main">
+    <div class="container">
+        <div class="row row--grid">
+            <!-- breadcrumb -->
+            <div class="col-12">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb__item"><a href="javascript:;" routerLink="">Home</a></li>
+                    <li class="breadcrumb__item breadcrumb__item--active">{{searchData && searchData.sCollection !=
+                        undefined? searchData.sCollection:'-'}} Collection</li>
+                </ul>
+            </div>
+            <!-- end breadcrumb -->
+
+            <!-- title -->
+            <div class="col-12">
+                <div class="main__title main__title--page">
+                    <h1>{{searchData && searchData.sCollection != undefined? searchData.sCollection:'-'}}</h1>
+                </div>
+            </div>
+            <!-- end title -->
+        </div>
+
+        <div class="row">
+            <!-- sidebar -->
+            <div class="col-12 col-xl-3 order-xl-2">
+                <div class="filter-wrap">
+                    <button class="filter-wrap__btn" type="button" data-toggle="collapse" data-target="#collapseFilter"
+                        aria-expanded="false" aria-controls="collapseFilter">Open filter</button>
+
+                    <div class="collapse filter-wrap__content" id="collapseFilter">
+                        <!-- filter -->
+                        <div class="filter">
+                            <h4 class="filter__title">Filters <button type="button" (click)="clickClearAll()">Clear
+                                    all</button></h4>
+
+                            <div class="filter__group">
+                                <label class="filter__label">Keyword:</label>
+                                <input type="text" class="filter__input" autofocus placeholder="Keyword"
+                                    (keyup)="onkeyUp($event)">
+                            </div>
+
+                            <div class="filter__group">
+                                <label for="sort" class="filter__label">Category:</label>
+
+                                <div class="filter__select-wrap">
+                                    <select name="sort" id="sort" class="filter__select"
+                                        (change)="onSelectCategory($event)">
+                                        <option value='All'>Select One</option>
+                                        <option value="Image">Image</option>
+                                        <option value="Audio">Audio</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- 
+                            <div class="filter__group">
+                                <label for="sort" class="filter__label">Sort by:</label>
+
+                                <div class="filter__select-wrap">
+                                    <select name="sort" id="sort" class="filter__select">
+                                        <option value="0">Relevance</option>
+                                        <option value="1">Newest</option>
+                                        <option value="2">Oldest</option>
+                                    </select>
+                                </div>
+                            </div> -->
+
+                            <div class="filter__group">
+                                <label class="filter__label">Type:</label>
+                                <ul class="filter__checkboxes">
+                                    <li>
+                                        <input id="type5" type="radio" name="type5" value="Auction"
+                                            (click)="onClickTypeSearch('Auction')">
+                                        <label for="type5">Auction</label>
+                                    </li>
+                                    <li>
+                                        <input id="type6" type="radio" name="type5" value="Fixed Sale"
+                                            (click)="onClickTypeSearch('Fixed Sale')">
+                                        <label for="type6">Sale</label>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                        <!-- end filter -->
+                    </div>
+                </div>
+            </div>
+            <!-- end sidebar -->
+
+            <!-- content -->
+            <div class="col-12 col-xl-9 order-xl-1">
+                <div class="row row--grid">
+                    <ng-container *ngIf="NFTListData && NFTListData.length">
+
+                        <div class="col-12 col-sm-6 col-lg-4" *ngFor="let obj of NFTListData;">
+                            <!-- card -->
+                            <div class="card audio__card">
+                                <!-- <a href="javascript:;" class="card__cover">
+                                    <img class="sty img-fluid"
+                                        *ngIf="obj.eType && obj.eType != undefined && obj.eType != 'Audio'"
+                                        src="{{obj.sHash && obj.sHash != undefined ? 'https://decryptnft.mypinata.cloud/ipfs/'+obj.sHash :'assets/img/cover/cover5.jpg' }} "
+                                        alt="">
+                                    <audio id="audio" controls class="sty "
+                                        *ngIf="obj.eType && obj.eType != undefined && obj.eType == 'Audio'">
+                                        <source
+                                            src="{{obj.sHash && obj.sHash != undefined ? 'https://decryptnft.mypinata.cloud/ipfs/'+obj.sHash :'assets/img/cover/cover1.jpg' }}"
+                                            type="audio/mp3" id="src" />
+                                    </audio>
+
+                                    <span class="card__time card__time--clock">
+                                        {{obj.eAuctionType && obj.eAuctionType != undefined ? obj.eAuctionType : '-'}}
+                                    </span>
+                                </a> -->
+                                <div class="card__cover">
+                                    <a href="javascript:;"
+                                        routerLink="/NFT-detail/{{obj._id && obj._id != undefined ? obj._id : '-'}}">
+                                        <img class="sty img-fluid"
+                                            *ngIf="obj.eType && obj.eType != undefined && obj.eType != 'Audio'"
+                                            src="{{obj.sHash && obj.sHash != undefined ? 'https://decryptnft.mypinata.cloud/ipfs/'+obj.sHash :'assets/img/cover/cover5.jpg' }} "
+                                            alt="">
+                                    </a>
+                                    <div class="audioPlayerMain"
+                                        *ngIf="obj.eType && obj.eType != undefined && obj.eType == 'Audio'">
+                                        <div class="audio__overlay">
+
+                                            <button value="{{obj._id && obj._id  != undefined ? obj._id : '-'}}"
+                                                class="play audio-control-btn">
+                                                <span class="iconify" data-icon="akar-icons:play" data-width="45"
+                                                    data-height="45"></span>
+                                            </button>
+                                            <button value="{{obj._id && obj._id  != undefined ? obj._id : '-'}}"
+                                                class="pause audio-control-btn d-none">
+                                                <span class="iconify" data-icon="akar-icons:pause" data-width="45"
+                                                    data-height="45"></span>
+                                            </button>
+
+                                        </div>
+                                        <audio id="{{obj._id && obj._id != undefined ? obj._id : '-'}}" controls
+                                            class="sty d-none">
+                                            <source
+                                                src="{{obj.sHash && obj.sHash != undefined ? 'https://decryptnft.mypinata.cloud/ipfs/'+obj.sHash :'assets/img/cover/cover1.jpg' }}"
+                                                type="audio/mp3">
+                                        </audio>
+                                    </div>
+
+
+                                </div>
+
+                                <h3 class="card__title"><a href="javascript:;">{{obj.sName && obj.sName != undefined ?
+                                        obj.sName : 'UnKnown'}}</a></h3>
+                                <div class="card__author card__author--verified">
+
+                                    <img src="{{obj.oUser && obj.oUser != undefined && obj.oUser['sProfilePicUrl']!= undefined ? 'https://decryptnft.mypinata.cloud/ipfs/'+obj.oUser['sProfilePicUrl'] :'assets/img/avatars/avatar9.jpg' }}"
+                                        alt="">
+                                    <a href="javascript:;">{{obj.oUser && obj.oUser != undefined && obj.oUser['oName']!=
+                                        undefined ?
+                                        obj.oUser['oName']['sFirstname'] : '-'}} {{obj.oUser && obj.oUser != undefined
+                                        && obj.oUser['oName'] != undefined ?
+                                        obj.oUser['oName']['sLastname'] : '-'}}</a>
+                                </div>
+                                <div class="card__info">
+                                    <div class="card__price">
+                                        <span>Reserve price</span>
+                                        <span>{{obj.nBasePrice && obj.nBasePrice != undefined ?
+                                            obj.nBasePrice['$numberDecimal'] : 0}} BNB</span>
+                                    </div>
+
+                                    <button class="card__likes" (click)="clickLike(obj._id)"
+                                        [ngClass]="{ 'card__likes--active': obj.is_user_like  == 'true' }"
+                                        type="button">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path
+                                                d="M20.16,5A6.29,6.29,0,0,0,12,4.36a6.27,6.27,0,0,0-8.16,9.48l6.21,6.22a2.78,2.78,0,0,0,3.9,0l6.21-6.22A6.27,6.27,0,0,0,20.16,5Zm-1.41,7.46-6.21,6.21a.76.76,0,0,1-1.08,0L5.25,12.43a4.29,4.29,0,0,1,0-6,4.27,4.27,0,0,1,6,0,1,1,0,0,0,1.42,0,4.27,4.27,0,0,1,6,0A4.29,4.29,0,0,1,18.75,12.43Z" />
+                                        </svg>
+
+                                        <span>{{obj.user_likes_size && obj.user_likes_size != undefined ?
+                                            obj.user_likes_size : '0'}}</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- end card -->
+                        </div>
+
+                    </ng-container>
+
+
+                </div>
+
+                <!-- paginator -->
+                <div class="row row--grid">
+                    <div class="col-12">
+                        <div class="paginator">
+                            <span class="paginator__pages">{{filterData && filterData['recordsFiltered'] ?
+                                filterData['recordsFiltered'] : 0}} from {{filterData && filterData['recordsTotal'] ?
+                                filterData['recordsTotal'] : 0}}</span>
+
+                            <ul class="paginator__list"
+                                *ngIf="filterData['recordsFiltered'] < filterData['recordsTotal'] ">
+                                <div class="filter__group">
+                                    <button class="filter__btn" type="button" style="width: 126%;"
+                                        (click)="onClickLoadMore()">Load More</button>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- end paginator -->
+            </div>
+            <!-- end content -->
+        </div>
+    </div>
+</main>
+<app-footer></app-footer>

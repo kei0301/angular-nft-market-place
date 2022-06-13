@@ -1,0 +1,57 @@
+.is-invalid{
+    border-color: #f4516c;
+    -webkit-box-shadow: 0 0 0 .2rem rgba(244, 81, 108, .25);
+    box-shadow: 0 0 0 .2rem rgba(244, 81, 108, .25)
+}
+.nft-err span {
+    font-size: 14px;
+    color: #852121;
+  }
+  .nft-err.ng-star-inserted {
+    position: absolute;
+    bottom: -24px;
+    left: 0;
+}
+
+.audioPlayerMain{
+    
+  height :260px;
+  width :260px;
+  background:url('https://decryptnft.mypinata.cloud/ipfs/QmZ2Bty7HzoT9nj4QrxRyFHyUtsUxEXg4RNV6RoyGDAgLu ');
+  background-size: cover;
+  background-position: center;
+}
+.sty{
+  height :260px;
+  width :260px;
+  object-fit: cover;
+}
+button:disabled{
+  opacity: 0.5;
+}
+
+
+
+.audio__card{
+  position: relative;
+}
+.audio__card audio
+{
+  /* visibility: hidden; */
+}
+.audio__overlay{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0,0,0,.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.audio__overlay svg,
+.audio__overlay button{
+  z-index: 2;
+  color: #fff;
+}
